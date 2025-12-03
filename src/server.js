@@ -9,7 +9,7 @@ const app = express();
 connectDB();
 app.use(cors());
 app.use(express.json());
-app.use('/health', healthRouter)
+app.use('/api/health', healthRouter)
 app.use('/api/students', studentsRouter)
 
 const PORT = process.env.PORT || 5000;
