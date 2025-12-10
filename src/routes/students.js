@@ -13,6 +13,41 @@ router.get('/', async (req, res) => {
     }
 })
 
+// returns total number of students
+router.get('/count', async (req, res) => {
+    try {
+      const count = await Student.countDocuments();
+      res.json({count});
+
+    } catch (err) {
+      console.error("Error getting student count", err.message);
+      res.status(500).json({ error: 'Server error getting student count'});
+    }
+})
+
+router.get('/by-email/:email', async (req, res) => {
+    try {
+      const email = req.params.email;
+      const student = await Student.findOne({email});
+
+      if (!email) {
+        return res.status(400).json({error: 'Email is requitred'})
+      }
+
+      if (!student) {
+        return res.status(404).json({error: 'Student not found'});
+      
+      }
+      res.json({ student });
+
+    } catch (err) {
+      console.error("Error getting student by email", err.message);
+      res.status(500).json({ error: 'Server error getting student by email'});
+      
+
+    }
+})
+
 router.get('/:id', async (req, res) => {
     try {
         const id = req.params.id;
@@ -91,5 +126,6 @@ router.post('/', async (req, res) => {
     
     }
 });
+
 
 module.exports = router;
