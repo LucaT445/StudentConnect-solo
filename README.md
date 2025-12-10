@@ -18,6 +18,20 @@ StudentConnect-solo is a Node.js + Express REST API for managing students in a M
 - The code is organized into routes, models, and config, so it's easy to follow. 
 - A "get by email" route was implemented to show handling lookups that aren’t based on IDs.
 
+## Project Structure
+
+
+```text
+StudentConnect-solo/
+ ├─ src/
+ │   ├─ models/          # Mongoose schemas
+ │   ├─ routes/          # Express route handlers
+ │   ├─ config/          # Database connection setup
+ ├─ .env.example         # Template for environment variables
+ ├─ package.json
+ ├─ README.md
+```
+
 ## How to Run Locally
 1. Clone the repository
 2. Install dependencies with `npm install`
@@ -31,6 +45,9 @@ npm run dev
 ```
 5. The API will be available at http://localhost:5000
 
+```markdown
+You can also copy the `.env.example` file and rename it to `.env`, then fill in your own MongoDB connection string and port number if needed.
+```
 
 ## API Endpoints
 
