@@ -9,7 +9,7 @@ StudentConnect-solo is a Node.js + Express REST API for managing students in a M
 - MongoDB
 - Mongoose
 
-## What this Project Shows
+## What This Project Shows
 
 - I can build a REST API from scratch using Express.
 - I demonstrate my knowledge of CRUD principles by building routes for creating, reading, updating, and deleting data. 
