@@ -101,8 +101,22 @@ router.put('/:id', async (req, res) => {
 
     res.json({ student: updatedStudent });
   } catch (err) {
-    console.error('Error updating student:', err.message);
-    res.status(400).json({ message: err.message });
+
+    if (err.name === 'CastError'){
+      console.error('Error updating student:', err.message);
+      return res.status(400).json({ message: "Invalid student ID" });
+
+    }
+    else if (err.name === 'ValidationError'){
+      console.error('Validation error:', err.message);
+      return res.status(422).json({message: "Improper data entry."})
+    }
+
+    else {
+      console.error('Server error:', err.message);
+      return res.status(500).json({message: 'There was a problem with the server.'})
+    }
+
   }
 });
 
