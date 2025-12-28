@@ -31,7 +31,7 @@ router.get('/by-email/:email', async (req, res) => {
       const student = await Student.findOne({email});
 
       if (!email) {
-        return res.status(400).json({error: 'Email is requitred'})
+        return res.status(400).json({error: 'Email is required'})
       }
 
       if (!student) {
@@ -54,16 +54,22 @@ router.get('/:id', async (req, res) => {
         const studentDoc = await Student.findById(id);
         
         if (!studentDoc){
-            return res.status(404).json({error: 'Student not found'});
+            return res.status(404).json({ success: false, data: null, error: "Student not found."});
         }
 
-        res.json({ student: studentDoc});
+        return res.status(200).json({ success: true, data: studentDoc, error: null});
+
 
 
 
     } catch (err) {
+
+      if (err.name === 'CastError'){
+        console.error("Error with student ID", err.message);
+        return res.status(400).json({success: false, data: null, error: "Invalid student ID."});
+      }
         console.error('Error getting student by ID', err.message);
-        res.status(500).json({ error: 'Server error getting student'});
+        return res.status(500).json({ success: false, data: null, error: "Server error."});
     }
 })
 
@@ -74,13 +80,19 @@ router.delete('/:id', async (req, res) => {
     const deletedStudent = await Student.findByIdAndDelete(id);
 
     if (!deletedStudent) {
-      return res.status(404).json({ error: 'Student not found' });
+      return res.status(404).json({ success: false, data: null, error: "Student not found."});
     }
 
-    res.json({ message: 'Student deleted', student: deletedStudent });
+    return res.status(200).json({ success: true, data: deletedStudent, error: null});
+
   } catch (err) {
-    console.error('Error deleting student:', err.message);
-    res.status(500).json({ error: 'Server error deleting student' });
+
+    if (err.name === 'CastError'){
+      console.error("Student ID error", err.message);
+      return res.status(400).json({success: false, data: null, error: "Invalid student ID." });
+    }
+
+    res.status(500).json({success: false, data: null, error: "Server error. "});
   }
 });
 
