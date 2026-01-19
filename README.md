@@ -1,7 +1,7 @@
 # StudentConnect-solo
 
 ## Overview
-StudentConnect-solo is a Node.js + Express REST API for managing students in a MongoDB database. It provides full CRUD functionality for student records.
+StudentConnect-solo is a Node.js + Express REST API for managing students in a MongoDB database. It provides full CRUD functionality for student records. Each responsibility is handled by a specific layer, keeping the architecture separate and easy to maintain.
 
 ## Tech Stack
 - Node.js
@@ -22,6 +22,16 @@ StudentConnect-solo is a Node.js + Express REST API for managing students in a M
 - Clean separation of concerns using models, routes, and configuration layers
 
 - Additional lookup routes (e.g., get-by-email) to demonstrate flexible querying beyond ID-based access
+
+## Design Notes
+
+- **Validation Strategy**:
+    Incoming request data is validated at the route layer before any database operation, and invalid or missing fields result in an immediate error response instead of reaching MongoDB.
+- **Separation of Concerns**:
+    This project has three layers: config, models, and routes. The config layer is responsible for connecting to the Mongoose database and loading environment variables. The models layer is responsible for defining what Student should look like and enforcing schema constraints. Finally, the routes layer is responsible for reading the request, deciding which operation to run, and sending back a response. This keeps all of the responsibilities isolated and easier to maintain. 
+- **Error Handling**:
+    Errors are handled at the route level by using try/catch blocks, which return different status codes
+    based on the type of failure along with JSON messages explaining the nature of the error. 
 
 ## Project Structure
 
