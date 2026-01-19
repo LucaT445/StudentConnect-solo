@@ -1,7 +1,7 @@
 # StudentConnect-solo
 
 ## Overview
-StudentConnect-solo is a Node.js + Express REST API for managing students in a MongoDB database. It provides full CRUD functionality for student records. Each responsibility is handled by a specific layer, keeping the architecture separate and easy to maintain.
+StudentConnect-solo is a Node.js + Express REST API for managing students in a MongoDB database. It provides full CRUD functionality for student records. Each responsibility is handled by a specific layer, keeping the architecture separate and easy to maintain. The project was built to practice handling failure cases and become more skilled at fixing system-level errors.  
 
 ## Tech Stack
 - Node.js
